@@ -36,14 +36,14 @@ class CaixaDaLanchonete {
       const valorItem = this.cardapio[codigo];
       valorTotal += valorItem * parseInt(quantidade);
 
-   
       if (
-        (codigo === "chantily" && !itens.some(item => item.startsWith("cafe,"))) ||
-        (codigo === "queijo" && !itens.some(item => item.startsWith("sanduiche,")))
+        (codigo === "chantily" &&
+          !itens.some((item) => item.startsWith("cafe,"))) ||
+        (codigo === "queijo" &&
+          !itens.some((item) => item.startsWith("sanduiche,")))
       ) {
         return "Item extra não pode ser pedido sem o principal";
       }
-
     }
 
     if (formaDePagamento === "dinheiro") {
@@ -57,3 +57,18 @@ class CaixaDaLanchonete {
   }
 }
 export { CaixaDaLanchonete };
+
+const caixaLanchonete = new CaixaDaLanchonete();
+console.log(caixaLanchonete.calcularValorDaCompra("debito", ["chantily,1"]));
+console.log(
+  caixaLanchonete.calcularValorDaCompra("debito", ["cafe,1", "chantily,1"])
+);
+console.log(
+  caixaLanchonete.calcularValorDaCompra("credito", ["combo1,1", "cafe,2"])
+);
+console.log(
+  caixaLanchonete.calcularValorDaCompra("moeda", ["combo1,1", "cafe,2"])
+);
+console.log(caixaLanchonete.calcularValorDaCompra("dinheiro", ["combo1,0"]));
+console.log(caixaLanchonete.calcularValorDaCompra("dinheiro", []));
+console.log(caixaLanchonete.calcularValorDaCompra("dinheiro", ["chocolate,2"]));
